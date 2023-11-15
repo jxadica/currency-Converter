@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Currency Convertor</title>
+</head>
+<body>
+<header>
+    <img src="bank.svg" alt="bank-icon">
+    <div>
+    <p>BANK</p>
+    <p>BUSINESS</p>
+    <p>INVESTMENTS</p>
+    <p>INSURANCE</p>
+    <p>MOBILE</p>
+    <p>TRIPS</p>
+    <p>ENTERTAINMENT</p>
+    </div>
+    <button>Login</button>
+</header>
+<main>
+    <div class="container">
+        <h1>Online currency converter</h1>
+        <div class="left-side">
+            <p>I have</p>
+            <div class="left-buttons">
+            <button class="left-rub">RUB</button>
+            <button class="left-usd">USD</button>
+            <button class="left-eur">EUR</button>
+            <button class="left-azn">AZN</button>
+        </div>
+        <div class="input-part">
+            <input type="number" class="left-input" id="fromAmount" onkeydown="return event.keyCode!==69" onchange="convertCurrency()">
+            <p class="lcurrent-choice">1 RUB = 0.0135 USD</p>
+        </div>
+            </div>
+           
+            <div class="right-side">
+                <p>I want </p>
+                <div class="right-buttons">
+                <button class="right-rub">RUB</button>
+                <button class="right-usd">USD</button>
+                <button class="right-eur">EUR</button>
+                <button class="right-azn">AZN</button>
+                </div>
+                <div class="input-part">
+                    <input type="number" class="right-input"  id="toAmount" onkeydown="return event.keyCode!==69" onchange="convertCurrency()">
+                    <p class="rcurrent-choice">1 USD = 73.8896 RUB</p>
+                </div>
+            </div>
+        </div>
+</main>
+
+
+
+
+    <script src="./app.js"></script>
+</body>
+</html>
+
+
+
