@@ -70,18 +70,30 @@ line-height: normal;
     line-height: normal;    
     margin-bottom: 10px;
 }
-.left-side button {
+button {
     width: 63px;
     height: 28px;
     color: #C6C6C6;
     border: 1px solid #C6C6C6 ;
-    background-color: initial;
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+.left-rub .left-azn .left-eur {
+    background-color: initial;
+}
+.right-rub .right-azn .right-eur {
+    background-color: initial;
+}
+.left-usd {
+    background-color: purple;
+
+}
+.right-rub{
+    background-color: purple;
 }
 .input-part {
     width: 259px;
@@ -113,17 +125,4 @@ input {
     font-weight: 400;
     line-height: normal;    
     margin-bottom: 10px;
-}
-.right-side button {
-    width: 63px;
-    height: 28px;
-    color: #C6C6C6;
-    border: 1px solid #C6C6C6 ;
-    background-color: initial;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
 }

@@ -2,15 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.querySelector(".left-usd").classList.add("selected");
     document.querySelector(".right-rub").classList.add("selected");
-    // document.querySelector(".selected").forEach(e=>{
-    //     e.style.backgroundColor="purple"
-    // })
     document.getElementById("fromAmount").addEventListener("input", convertCurrency);
     document.getElementById("toAmount").addEventListener("input", convertCurrency);
 
     document.querySelectorAll(".left-buttons button").forEach(button => {
         button.addEventListener("click", function () {
             selectCurrency(this, "left");
+            convertCurrency()
         });
     });
 
@@ -19,17 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
             selectCurrency(this, "right");
         });
     });
-    document.getElementById("fromAmount").addEventListener("input", function () {
+    document.getElementById("fromAmount").addEventListener("change", function () {
         if (this.value !== "") {
             convertCurrency();
         }
     });
 
-    document.getElementById("toAmount").addEventListener("input", function () {
+    document.getElementById("toAmount").addEventListener("change", function () {
         if (this.value !== "") {
             convertCurrency();
         }
     });
+    
+    // convertCurrency();
     function convertCurrency() {
         const fromAmountInput = document.getElementById("fromAmount");
         const toAmountInput = document.getElementById("toAmount");
@@ -38,7 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const apiKey = "c685d64ada6397a27ee840a1";
         const fromCurrency = document.querySelector(".left-buttons .selected").textContent;
         const toCurrency = document.querySelector(".right-buttons .selected").textContent;
-        if (fromAmountInput.value.length != 0) {
+        if (fromAmountInput.value.length != 0 ) {
+           
             const fromAmount = parseFloat(fromAmountInput.value);
             if (!isNaN(fromAmount)) {
                 fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/pair/${fromCurrency}/${toCurrency}/${fromAmount}`)
@@ -58,8 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
            
         } 
-        else if (toAmountInput.value.length != 0) {
-            // console.log("aaaa");
+        else if (toAmountInput.value.length != 0 ) {
             const toAmount = parseFloat(toAmountInput.value);
             if (!isNaN(toAmount)) {
                 fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/pair/${fromCurrency}/${toCurrency}/${toAmount}`)
@@ -73,10 +73,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         alert("Failed to fetch exchange rates. Please try again later.");
                     });
             }
-        }
-    
+        };
     }
-    // convertCurrency();
 });
 
 function selectCurrency(button, side) {
@@ -99,71 +97,18 @@ function selectCurrency(button, side) {
     document.querySelector(`.${side}-buttons .selected`).textContent = currency;
     document.querySelector(`.${side}-buttons .selected`).setAttribute("value", currency);
     document.querySelector(`.${oppositeSide}-buttons .selected`).textContent = oppositeCurrency;
-
-    convertCurrency();
+    if (oppositeSide=="left"){
+        const oppositeInput = document.getElementById(`fromAmount`);
+        console.log();
+        if (oppositeInput.value !== "" ) {
+            convertCurrency();
+        }
+    }else {
+        const oppositeInput = document.getElementById(`fromAmount`);
+        console.log();
+        if (oppositeInput.value !== "" ) {
+            convertCurrency();
+        }
+    }
+    
 }
-
-// document.getElementById("fromAmount").addEventListener("input", function() {
-//     if (this.value !== "") {
-//         convertCurrency();
-//     }
-// });
-
-// document.getElementById("toAmount").addEventListener("input", function() {
-//     if (this.value !== "") {
-//         convertCurrency();
-//     }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// HTML elements
-// const fromCurrencySelect = document.getElementById("fromCurrency");
-// const toCurrencySelect = document.getElementById("toCurrency");
-// const fromAmountInput = document.getElementById("fromAmount");
-// const toAmountInput = document.getElementById("toAmount");
-
-// // Currency conversion function
-// function convertCurrency() {
-//     const fromCurrency = fromCurrencySelect.value;
-//     const toCurrency = toCurrencySelect.value;
-//     const fromAmount = parseFloat(fromAmountInput.value);
-//     const toAmount = parseFloat(toAmountInput.value);
-
-//     if (isNaN(fromAmount) || isNaN(toAmount)) {
-//         return;
-//     }
-
-//     fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/pair/${fromCurrency}/${toCurrency}/${fromAmount}`)
-//         .then((resp) => resp.json())
-//         .then((data) => {
-//             toAmountInput.value = data.conversion_result;
-//         })
-//         .catch((error) => {
-//             console.error("Error fetching exchange rates:", error);
-//             alert("Failed to fetch exchange rates. Please try again later.");
-//         });
-// }
-
-// // Event listeners
-// fromCurrencySelect.addEventListener("change",convertCurrency)
-// // fromCurrencySelect.addEventListener("change", convertCurrency);
-// toCurrencySelect.addEventListener("change", convertCurrency);
-// fromAmountInput.addEventListener("input", convertCurrency);
