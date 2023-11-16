@@ -17,19 +17,22 @@ document.addEventListener("DOMContentLoaded", function () {
             selectCurrency(this, "right");
         });
     });
-    document.getElementById("fromAmount").addEventListener("change", function () {
-        if (this.value !== "") {
-            convertCurrency();
-        }
-    });
-
-    document.getElementById("toAmount").addEventListener("change", function () {
-        if (this.value !== "") {
-            convertCurrency();
-        }
-    });
-    
-    // convertCurrency();
+    let invalidChars = [
+        "-",
+        "+",
+        "e",
+      ];
+      document.querySelector(".left-input").addEventListener("keydown", function(e) {
+          if (invalidChars.includes(e.key)) {
+            e.preventDefault();
+          }
+        });
+        document.querySelector(".right-input").addEventListener("keydown", function(e) {
+          if (invalidChars.includes(e.key)) {
+            e.preventDefault();
+          }
+        });
+      
     function convertCurrency() {
         const fromAmountInput = document.getElementById("fromAmount");
         const toAmountInput = document.getElementById("toAmount");
@@ -46,18 +49,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then((resp) => resp.json())
                     .then((data) => {
                         toAmountInput.value = data.conversion_result;
-                        lCurrentChoice.textContent=''
-                        lCurrentChoice.textContent=`1 ${data.base_code}= ${data.conversion_rate} ${data.target_code}`
-                        rCurrentChoice.textContent=''
                         let myRate=(1/data.conversion_rate).toFixed(4);
-                        rCurrentChoice.textContent=`1 ${data.target_code}= ${myRate} ${data.base_code}`
+                        lCurrentChoice.textContent=''
+                        lCurrentChoice.textContent=`1 ${data.target_code}= ${myRate} ${data.base_code}`
+                        rCurrentChoice.textContent=''
+                        rCurrentChoice.textContent=`1 ${data.base_code}= ${data.conversion_rate} ${data.target_code}`
                     })
                     .catch((error) => {
                         console.error("Error fetching exchange rates:", error);
                         alert("Failed to fetch exchange rates. Please try again later.");
                     });
             }
-           
         } 
         else if (toAmountInput.value.length != 0 ) {
             const toAmount = parseFloat(toAmountInput.value);
@@ -65,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/pair/${fromCurrency}/${toCurrency}/${toAmount}`)
                     .then((resp) => resp.json())
                     .then((data) => {
-                        console.log(data);
+                        // console.log(data);
                         fromAmountInput.value = data.conversion_result
                     })
                     .catch((error) => {
@@ -75,22 +77,36 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         };
     }
-});
-
+    let leftAmount= document.querySelector(".left-input");
+   let rightAmount= document.querySelector(".right-input");
+function clearingInput(){
+//    let leftAmount= document.querySelector(".left-input");
+//    let rightAmount= document.querySelector(".right-input");
+   if(leftAmount.value!=''){
+    rightAmount.value='';
+    // console.log("d");
+   }else if (rightAmount.value!=''){
+    // console.log("f");
+    leftAmount.value=''
+   }}
+ function keyCheck(event){
+   let keyID = event.key;
+console.log(keyID);
+if(keyID=="Backspace"){
+clearingInput()
+}
+   
+}
+leftAmount.addEventListener('keydown',keyCheck);
+rightAmount.addEventListener('keydown',keyCheck);
 function selectCurrency(button, side) {
-
     document.querySelectorAll(`.${side}-buttons button`).forEach(btn => {
         btn.classList.remove("selected");
         btn.style.backgroundColor = "transparent";
     });
-
-
     button.classList.add("selected");
     button.style.backgroundColor = "purple";
-
-
     const currency = button.textContent;
-    //attention
     const oppositeSide = side === "left" ? "right" : "left";
     const oppositeCurrency = document.querySelector(`.${oppositeSide}-buttons .selected`).textContent;
     document.querySelector(`.${side}-input`).setAttribute("placeholder", `Enter amount in ${currency}`);
@@ -99,16 +115,17 @@ function selectCurrency(button, side) {
     document.querySelector(`.${oppositeSide}-buttons .selected`).textContent = oppositeCurrency;
     if (oppositeSide=="left"){
         const oppositeInput = document.getElementById(`fromAmount`);
-        console.log();
+        // console.log(oppositeInput);
         if (oppositeInput.value !== "" ) {
             convertCurrency();
         }
     }else {
         const oppositeInput = document.getElementById(`fromAmount`);
-        console.log();
+        // console.log();
         if (oppositeInput.value !== "" ) {
             convertCurrency();
         }
     }
     
 }
+})
