@@ -92,7 +92,7 @@ function clearingInput(){
    }}
  function keyCheck(event){
    let keyID = event.key;
-console.log(keyID);
+// console.log(keyID);
 if(keyID=="Backspace"){
 clearingInput()
 }
