@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".left-usd").classList.add("selected");
     document.querySelector(".right-rub").classList.add("selected");
     document.getElementById("fromAmount").addEventListener("input", convertCurrency);
-    document.getElementById("toAmount").addEventListener("input", convertCurrency);
+    document.getElementById("toAmount").addEventListener("input",
+        convertCurrency );
 
     document.querySelectorAll(".left-buttons button").forEach(button => {
         button.addEventListener("click", function () {
